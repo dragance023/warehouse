@@ -1,0 +1,16 @@
+
+<div class="row">
+    <div class="col">
+        <wo-panel [recivedDoc]="doc"></wo-panel>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-8">
+        <wo-table [itemList]="itemList" [articles]="articles"></wo-table>
+    </div>
+
+    <div class="col-4" *ngIf="doc?.status == 'opened'">
+        <wo-form [recivedArticles]="articles" [recivedDoc]="doc" (newItemIsAdded)="addItem($event)"></wo-form>
+    </div>
+</div>

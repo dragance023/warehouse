@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-4">
+    <p>Transaction Type: {{ recivedDoc?.transactionType }}</p>
+    <p>Date of Creation: {{ recivedDoc?.dateOfCreation | date: 'fullDate' }}</p>
+  </div>
+
+  <div class="col-4">
+    <p><u>Business Partner </u></p>
+    <p>{{ recivedDoc?.businessPartner.name }}</p>
+    <p>{{ recivedDoc?.businessPartner.city }}, {{ recivedDoc?.businessPartner.address }}</p>
+  </div>
+
+  <div class="col-4">
+    <p>Status: {{ recivedDoc?.status }}</p>
+    <button class="btn btn-primary" (click)="recordDocument()" *ngIf="recivedDoc?.status == 'opened'">Record
+      Document</button>
+  </div>
+</div>

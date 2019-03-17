@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col">
+    <ngb-pagination [collectionSize]="docs?.count" (pageChange)="changePage($event)"></ngb-pagination>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="float-right">
+      <span *ngIf="showSettings">
+
+        <label>Date Of Creation</label>
+        <input type="checkbox" name="dateOfCreation" [(ngModel)]="showColumn.dateOfCreation">
+
+        <label>Date Of Recording</label>
+        <input type="checkbox" name="date" [(ngModel)]="showColumn.dateOfRecording">
+
+        <label>Status</label>
+        <input type="checkbox" name="status" [(ngModel)]="showColumn.status">
+
+        <label>Transaction Type</label>
+        <input type="checkbox" name="transactionType" [(ngModel)]="showColumn.transactionType">
+
+        <label>Business Partner</label>
+        <input type="checkbox" name="businessPartner" [(ngModel)]="showColumn.businessPartner">
+
+        <label>Business Partner Location</label>
+        <input type="checkbox" name="businessPartnerLocation" [(ngModel)]="showColumn.businessPartnerLocation">
+
+        <label>Year</label>
+        <input type="checkbox" name="year" [(ngModel)]="showColumn.year">
+      </span>
+      
+        <button class="btn btn-primary" *ngIf="!showSettings" (click)="showSettings = !showSettings">Open Table Settings</button>
+        <button class="btn" *ngIf="showSettings" (click)="showSettings = !showSettings">Close Table Settings</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table-striped">
+      <thead class="thead-default">
+        <tr>
+          <th (click)="changeSort('dateOfCreation')" *ngIf="showColumn.dateOfCreation">
+            Date of Creation
+            <i class="fa fa-sort" aria-hidden="true" *ngIf="params.sort != 'dateOfCreation'"></i>
+            <i class="fa fa-sort-desc" aria-hidden="true" *ngIf="params.sort == 'dateOfCreation' && params.sortDirection == 'desc'"></i>
+            <i class="fa fa-sort-asc" aria-hidden="true" *ngIf="params.sort == 'dateOfCreation' && params.sortDirection == 'asc'"></i>
+          </th>
+          <th (click)="changeSort('dateOfRecording')" *ngIf="showColumn.dateOfRecording">
+            Date of Recording
+            <i class="fa fa-sort" aria-hidden="true" *ngIf="params.sort != 'dateOfRecording'"></i>
+            <i class="fa fa-sort-desc" aria-hidden="true" *ngIf="params.sort == 'dateOfRecording' && params.sortDirection == 'desc'"></i>
+            <i class="fa fa-sort-asc" aria-hidden="true" *ngIf="params.sort == 'dateOfRecording' && params.sortDirection == 'asc'"></i>
+          </th>
+          <th (click)="changeSort('status')" *ngIf="showColumn.status">
+            Status
+            <i class="fa fa-sort" aria-hidden="true" *ngIf="params.sort != 'status'"></i>
+            <i class="fa fa-sort-desc" aria-hidden="true" *ngIf="params.sort == 'status' && params.sortDirection == 'desc'"></i>
+            <i class="fa fa-sort-asc" aria-hidden="true" *ngIf="params.sort == 'status' && params.sortDirection == 'asc'"></i>
+          </th>
+          <th (click)="changeSort('transactionType')" *ngIf="showColumn.transactionType">
+            Transaction Type
+            <i class="fa fa-sort" aria-hidden="true" *ngIf="params.sort != 'transactionType'"></i>
+            <i class="fa fa-sort-desc" aria-hidden="true" *ngIf="params.sort == 'transactionType' && params.sortDirection == 'desc'"></i>
+            <i class="fa fa-sort-asc" aria-hidden="true" *ngIf="params.sort == 'transactionType' && params.sortDirection == 'asc'"></i>
+          </th>
+          <th *ngIf="showColumn.businessPartner">Business Partner</th>
+          <th *ngIf="showColumn.businessPartnerLocation">Business Partner Location</th>
+          <th *ngIf="showColumn.year">Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of docs?.results" [routerLink]="[doc._id]">
+          <td *ngIf="showColumn.dateOfCreation">{{doc.dateOfCreation | date: 'MMM, d y'}}</td>
+          <td *ngIf="showColumn.dateOfRecording">{{doc.dateOfRecording | date: 'MMM, d y'}}</td>
+          <td *ngIf="showColumn.status">{{doc.status}}</td>
+          <td *ngIf="showColumn.transactionType">{{doc.transactionType}}</td>
+          <td *ngIf="showColumn.businessPartner">{{doc.businessPartner?.name}}</td>
+          <td *ngIf="showColumn.businessPartnerLocation">{{doc.businessPartner?.city}}, {{doc.businessPartner?.address}}</td>
+          <td *ngIf="showColumn.year">{{doc.year}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
